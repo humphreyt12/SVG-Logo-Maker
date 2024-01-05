@@ -28,6 +28,11 @@ const questions = [
         type: "input",
         name: "text",
         message: "TEXT: Enter up to (3) Characters:",
+        validate: function (answer) {
+            if (answer.length < 4){
+                return console.log("Invalid user text field detected! Please enter 1-3 Characters, no more and no less");
+            }
+        }
     },
     {
         type: "input",
@@ -36,14 +41,20 @@ const questions = [
     },
     {
         type: "list",
-        name: "pixel-image",
-        message: "Choose which Pixel Image you would like?",
+        name: "pixel-shape",
+        message: "Choose which Pixel Shape you would like?",
         choices: ["Circle", "Square", "Triangle"],
+        
     },
     {
         type: "input",
-        name: "shape",
+        name: "shape-color",
         message: "SHAPE COLOR: Enter a color keyword (OR a hexadecimal number):",
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A valid shape color is required.")
+            }
+        }
     },
   
 ];
@@ -54,31 +65,45 @@ function writeToFile(fileName, data) {
       if (err) {
         return console.log(err);
       }
-      console.log("Congratulations, you have Generated a logo.svg!")
+      console.log("Congratulations, you have generated a logo.svg!")
         });
     }
-
-    function init() {
-        console.log("Starting init");
-        var svgString = "";
-        var svg_file = "logo.svg";
+// TODO: Create a function to initialize app
+function init() {
+    inquirer
+    .prompt(questions)
+    .then((answers) => {
+      const createLogo =  (answers);
+      
+      fs.writeFile(fileName, svg, (err) =>
+        err ? console.log(err) : console.log('You successfully generated a logo.svg!')
+      );
+    });
+  }
+  
+  // Function call to initialize app
+  init();
+//     function init() {
+//         console.log("Starting init");
+//         var svgString = "";
+//         var svg_file = "logo.svg";
     
-        // Prompt the user for answers
-        const answers = await inquirer.prompt(questions);
+//         // Prompt the user for answers
+//         const answers = inquirer.prompt(questions);
 
 
-	// Create a new Svg instance and add the shape and text elements to it
-	var svg = new Svg();
-	svg.setTextElement(user_text, user_font_color);
-	svg.setShapeElement(user_shape);
-	svgString = svg.render();
+// 	// Create a new Svg instance and add the shape and text elements to it
+// 	var svg = new Svg();
+// 	svg.setTextElement(user_text, user_font_color);
+// 	svg.setShapeElement(user_shape);
+// 	svgString = svg.render();
 	
-	//Print shape to log
-	console.log("Displaying shape:\n\n" + svgString);
-	//document.getElementById("svg_image").innerHTML = svgString;
+// 	//Print shape to log
+// 	console.log("Displaying shape:\n\n" + svgString);
+// 	//document.getElementById("svg_image").innerHTML = svgString;
 
-	console.log("Shape generation complete!");
-	console.log("Writing shape to file...");
-	writeToFile(svg_file, svgString); 
-}
-init()
+// 	console.log("Shape generation complete!");
+// 	console.log("Writing shape to file...");
+// 	writeToFile(svg_file, svgString); 
+// }
+// init()
