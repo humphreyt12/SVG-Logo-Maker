@@ -18,7 +18,7 @@ Built a Node.js command-line application that takes in user input to generate a 
 <img src="./Develop/examples/SVGLogoGeneratedScreenShot.png" alt ="Screen shot of generated svg logo on live server"/>
 
 ## Video
-Click link below to watch the rundown video of the application
+Click the link below to watch the rundown video of the application
 
 👉 https://drive.google.com/file/d/1x1mXHFJoRrQx4MohPAZ_3HkjfsmDG2_p/view
 
