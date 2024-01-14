@@ -18,9 +18,23 @@ class Svg{
     setTextElement(text,color){
         this.textElement = `<text x="150" y="125" font-size="60" text-anchor="middle" fill="${color}">${text}</text>`
     }
-    setShapeElement(shape){
-        this.shapeElement = shape.render()
-
+    setShapeElement(shape, color){
+    
+        if (shape === "Circle") {
+            var newCircle = new Circle;
+            newCircle.setColor(color);
+            this.shapeElement = newCircle.render();
+        }
+        if (shape === "Square") {
+            var newSquare = new Square; 
+            newSquare.setColor(color);
+            this.shapeElement = newSquare.render();
+        }
+        if (shape === "Triangle") {
+            var newTriangle = new Triangle;
+            newTriangle.setColor(color);
+            this.shapeElement = newTriangle.render();
+        }
     }
    
 }
@@ -48,25 +62,6 @@ const questions = [
         name: "pixel-shape",
         message: "Choose which Pixel Shape you would like?",
         choices: ["Circle", "Square", "Triangle"],
-        validate: function (answer) {
-            let user_shape;
-	        if (user_shape_type === "Square" || user_shape_type === "square") {
-		    user_shape = new Square();
-		    console.log("User selected Square shape");
-	        }   
-	        else if (user_shape_type === "Circle" || user_shape_type === "circle") {
-		    user_shape = new Circle();
-		    console.log("User selected Circle shape");
-	        }
-	        else if (user_shape_type === "Triangle" || user_shape_type === "triangle") {
-		    user_shape = new Triangle();
-		    console.log("User selected Triangle shape");
-	        }
-	        else{
-		    console.log("Invalid shape!");
-	        }
-          return true
-        }
     },
     {
         type: "input",
@@ -114,12 +109,12 @@ function init() {
 	// Create a new Svg instance and add the shape and text elements to it
 	var svg = new Svg();
 	svg.setTextElement(user_text, user_font_color);
-    svg.setShapeElement(user_shape_type);
+    svg.setShapeElement(user_shape_type, user_shape_color);
 	svgString = svg.render();
 	
 	//Print shape to log
 	console.log("Displaying shape:\n\n" + svgString);
-	//document.getElementById("svg_image").innerHTML = svgString;
+
 
 	console.log("Shape generation complete!");
 	console.log("Writing shape to file...");
